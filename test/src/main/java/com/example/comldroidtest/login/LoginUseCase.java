@@ -4,8 +4,8 @@
 package com.example.comldroidtest.login;
 
 
-import com.ldroid.kwei.UseCase;
-import com.ldroid.kwei.retrofit.RetrofitCreator;
+import com.ldroid.network.UseCase;
+import com.ldroid.network.retrofit.RetrofitCreator;
 
 import io.reactivex.Observable;
 import retrofit2.Retrofit;

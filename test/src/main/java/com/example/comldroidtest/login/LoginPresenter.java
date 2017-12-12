@@ -5,8 +5,8 @@ package com.example.comldroidtest.login;
 
 import android.support.annotation.NonNull;
 
-import com.ldroid.kwei.UseCase;
-import com.ldroid.kwei.UseCaseHandler;
+import com.ldroid.network.UseCase;
+import com.ldroid.network.UseCaseHandler;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
