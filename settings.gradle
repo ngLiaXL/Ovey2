@@ -1,1 +1,1 @@
-include ':network', ':test'
+include ':app', ':test'

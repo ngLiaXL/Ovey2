@@ -1,7 +1,7 @@
 package com.example.comldroidtest.login;
 
 
-import com.ldroid.network.BuildConfig;
+import com.ldroid.kwei.BuildConfig;
 
 public enum Env {
 
