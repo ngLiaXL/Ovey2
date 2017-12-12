@@ -32,12 +32,12 @@ public class UseCaseHandler {
 
     private static UseCaseHandler INSTANCE;
 
-    private final ObserveThread mThreadExecutor;
+    private final ObserveThread mObserveThread;
     private final PostExecutionThread mPostExecutionThread;
     private final CompositeDisposable mDisposables;
 
     public UseCaseHandler(ObserveThread threadExecutor, PostExecutionThread useCaseScheduler) {
-        mThreadExecutor = threadExecutor;
+        mObserveThread = threadExecutor;
         mPostExecutionThread = useCaseScheduler;
         mDisposables = new CompositeDisposable();
 
@@ -47,7 +47,7 @@ public class UseCaseHandler {
             final UseCase<T, R> useCase, T values, UseCase.UseCaseCallback<R> callback) {
         useCase.setRequestValues(values);
         final Observable<R> observable = useCase.buildObservable()
-                .subscribeOn(mThreadExecutor.getScheduler())
+                .subscribeOn(mObserveThread.getScheduler())
                 .observeOn(mPostExecutionThread.getScheduler());
         addDisposable(observable.subscribeWith(new DefaultObserver<>(callback)));
 
