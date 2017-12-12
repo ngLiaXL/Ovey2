@@ -18,6 +18,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     public LoginPresenter(LoginContract.View view) {
         this.mView = view;
         mLoginUseCase = new LoginUseCase();
+        mUseCaseHandler = UseCaseHandler.getInstance();
     }
 
 
@@ -58,6 +59,6 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void destroy() {
-
+        mUseCaseHandler.dispose();
     }
 }
