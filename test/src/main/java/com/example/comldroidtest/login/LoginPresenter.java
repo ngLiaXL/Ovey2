@@ -35,7 +35,7 @@ public class LoginPresenter implements LoginContract.Presenter {
             public void onSuccess(LoginUseCase.ResponseValue response) {
                 mView.dismissLoading();
                 // ...
-                mView.onRespLogin();
+                mView.onRespLogin(response);
             }
 
             @Override

@@ -9,7 +9,7 @@ import com.example.comldroidtest.mvp.BaseView;
 public interface LoginContract {
 
 	interface View extends BaseView {
-		void onRespLogin();
+		void onRespLogin(LoginUseCase.ResponseValue response);
 	}
 
 	interface Presenter extends BasePresenter {

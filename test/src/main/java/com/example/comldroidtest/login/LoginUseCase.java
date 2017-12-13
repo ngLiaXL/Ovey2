@@ -5,6 +5,7 @@ package com.example.comldroidtest.login;
 
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.ldroid.kwei.UseCase;
 import com.ldroid.kwei.retrofit.RetrofitCreator;
 
@@ -34,8 +35,16 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
         }
     }
 
-    public static final class ResponseValue implements UseCase.ResponseValue {
+    public static final class ResponseValue extends ResponseValuesWrapper{
 
+        @SerializedName("deptinfo")
+        @Expose public DeptInfo deptInfo;
+
+        public static final class DeptInfo{
+            @Expose public String dcode ;
+            @Expose public String dname ;
+            @Expose public String label ;
+        }
     }
 
 
