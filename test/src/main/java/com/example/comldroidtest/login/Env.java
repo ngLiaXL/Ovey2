@@ -11,13 +11,13 @@ public enum Env {
      * http://172.16.180.129:7001/easd/ 崔征
      * http://172.16.180.103:7008/easd/ 姜超
      */
-    debug("http://main.eascs.com/easd/",
+    debug("http://dmc.eascs.com/easd/",
             "http://172.29.12.183:7001/eaoa/"),
 
     /**
      * 生产环境
      */
-    release("http://main.eascs.com/easd/",
+    release("http://dmc.eascs.com/easd/",
             "http://oa.eascs.com/eaoa/");
 
 

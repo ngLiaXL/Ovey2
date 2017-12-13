@@ -4,6 +4,7 @@
 package com.example.comldroidtest.login;
 
 
+import com.google.gson.annotations.Expose;
 import com.ldroid.kwei.UseCase;
 import com.ldroid.kwei.retrofit.RetrofitCreator;
 
@@ -12,20 +13,19 @@ import retrofit2.Retrofit;
 
 public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCase.ResponseValue> {
 
-    public static final class RequestValues implements UseCase.RequestValues {
-        private String name;
-        private String password;
+    public static final class RequestValues extends RequestValuesWrapper {
 
-        public RequestValues(String name, String password) {
-            this.name = name;
+        @Expose
+        public String username;
+        @Expose
+        public String password;
+        @Expose
+        public String type;
+
+        public RequestValues(String username, String password) {
+            this.username = username;
             this.password = password;
-        }
-
-        public String getName() {
-            return name;
-        }
-        public String getPassword() {
-            return password;
+            this.type = "LOGIN";
         }
 
         @Override
@@ -46,6 +46,6 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
         RequestValues requestValues = getRequestValues();
         Retrofit retrofit = RetrofitCreator.INSTANCE.getInstance();
         LoginService service = retrofit.create(LoginService.class);
-        return service.login(requestValues.getName(), requestValues.getPassword());
+        return service.login(requestValues.getParams());
     }
 }
