@@ -11,7 +11,7 @@ public interface BaseView {
 
     void showLoading(String message);
 
-    void dismissLoading();
+    void hideLoading();
 
     void onError(String message);
 }

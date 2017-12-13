@@ -1,8 +1,8 @@
 package com.example.comldroidtest;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
     }
 
     @Override
-    public void dismissLoading() {
+    public void hideLoading() {
         mProgressBar.setVisibility(View.GONE);
     }
 

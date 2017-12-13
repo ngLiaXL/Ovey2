@@ -32,14 +32,14 @@ public class LoginPresenter implements LoginContract.Presenter {
                 .ResponseValue>() {
             @Override
             public void onSuccess(LoginUseCase.ResponseValue response) {
-                mView.dismissLoading();
+                mView.hideLoading();
                 // ...
                 mView.onRespLogin(response);
             }
 
             @Override
             public void onError(Throwable exception) {
-                mView.dismissLoading();
+                mView.hideLoading();
                 // ...
                 mView.onError(exception.toString());
             }
