@@ -3,13 +3,18 @@ package com.example.comldroidtest.login;
 import com.google.gson.GsonBuilder;
 import com.ldroid.kwei.UseCase;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by xianglong.liang on 2017/12/13.
  */
-public class RequestValuesWrapper implements UseCase.RequestValues {
+public abstract class RequestValuesWrapper implements UseCase.RequestValues {
+
+
+    public List<String> errors = new ArrayList<>();
 
 
     public Map<String, String> getParams() {
@@ -22,8 +27,5 @@ public class RequestValuesWrapper implements UseCase.RequestValues {
         return new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create().toJson(this);
     }
 
-    @Override
-    public boolean checkInput() {
-        return false;
-    }
+    abstract boolean checkInput();
 }

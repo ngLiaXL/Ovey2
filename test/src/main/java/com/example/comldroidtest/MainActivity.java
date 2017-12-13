@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
 
     }
 
+    public void onClickCancel(View view) {
+        mPresenter.destroy();
+    }
+
     @Override
     public Context context() {
         return this;
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
 
     @Override
     public void onRespLogin(LoginUseCase.ResponseValue response) {
-        Toast.makeText(this,response.deptInfo.dname,Toast.LENGTH_LONG).show();
+        Toast.makeText(this, response.deptInfo.dname, Toast.LENGTH_LONG).show();
     }
+
 }

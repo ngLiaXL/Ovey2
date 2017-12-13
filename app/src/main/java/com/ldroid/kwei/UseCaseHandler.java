@@ -17,10 +17,7 @@
 package com.ldroid.kwei;
 
 
-import com.ldroid.kwei.executor.PostExecutionThread;
-import com.ldroid.kwei.executor.ObserveThread;
-import com.ldroid.kwei.executor.UIThread;
-import com.ldroid.kwei.executor.WorkerThread;
+import com.ldroid.kwei.transformer.DefaultTransformer;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -30,28 +27,21 @@ import io.reactivex.observers.DisposableObserver;
 
 public class UseCaseHandler {
 
-    private static UseCaseHandler INSTANCE;
-
-    private final ObserveThread mObserveThread;
-    private final PostExecutionThread mPostExecutionThread;
     private final CompositeDisposable mDisposables;
 
-    public UseCaseHandler(ObserveThread threadExecutor, PostExecutionThread useCaseScheduler) {
-        mObserveThread = threadExecutor;
-        mPostExecutionThread = useCaseScheduler;
+    public UseCaseHandler() {
         mDisposables = new CompositeDisposable();
-
     }
 
     public <T extends UseCase.RequestValues, R extends UseCase.ResponseValue> void execute(
             final UseCase<T, R> useCase, T values, UseCase.UseCaseCallback<R> callback) {
         useCase.setRequestValues(values);
-        final Observable<R> observable = useCase.buildObservable()
-                .subscribeOn(mObserveThread.getScheduler())
-                .observeOn(mPostExecutionThread.getScheduler());
+        Observable<R> observable = useCase.buildObservable()
+                .compose(new DefaultTransformer<R>());
         addDisposable(observable.subscribeWith(new DefaultObserver<>(callback)));
 
     }
+
 
     private static final class DefaultObserver<R extends UseCase.ResponseValue> extends
             DisposableObserver<R> {
@@ -80,19 +70,12 @@ public class UseCaseHandler {
 
 
     public void dispose() {
-        if (!mDisposables.isDisposed()) {
-            mDisposables.dispose();
-        }
+        mDisposables.clear();
     }
 
     private void addDisposable(Disposable disposable) {
         mDisposables.add(disposable);
     }
 
-    public static UseCaseHandler getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new UseCaseHandler(new WorkerThread(), new UIThread());
-        }
-        return INSTANCE;
-    }
+
 }

@@ -24,4 +24,10 @@
         android:onClick="onClickLogin"
         android:text="login"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onClickCancel"
+        android:text="cancel"/>
+
 </LinearLayout>

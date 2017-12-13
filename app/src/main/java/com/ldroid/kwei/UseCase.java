@@ -36,14 +36,18 @@ public abstract class UseCase<Q extends UseCase.RequestValues, P extends UseCase
         return mRequestValues;
     }
 
-    protected abstract Observable<P> buildObservable();
+    Observable<P> buildObservable() {
+        return buildObservable(mRequestValues);
+    }
+
+    protected abstract Observable<P> buildObservable(Q requestValues);
 
     /**
      * Data passed to a request.
      */
     public interface RequestValues {
-        boolean checkInput();
     }
+
     /**
      * Data received from a request.
      */

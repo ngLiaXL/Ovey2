@@ -11,14 +11,12 @@ import com.ldroid.kwei.UseCaseHandler;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View mView;
-    private LoginUseCase mLoginUseCase;
     private UseCaseHandler mUseCaseHandler;
 
 
     public LoginPresenter(LoginContract.View view) {
         this.mView = view;
-        mLoginUseCase = new LoginUseCase();
-        mUseCaseHandler = UseCaseHandler.getInstance();
+        mUseCaseHandler = new UseCaseHandler();
     }
 
 
@@ -30,7 +28,8 @@ public class LoginPresenter implements LoginContract.Presenter {
             return;
         }
         mView.showLoading("账号登录...");
-        mUseCaseHandler.execute(mLoginUseCase, requestValue, new UseCase.UseCaseCallback<LoginUseCase.ResponseValue>() {
+        mUseCaseHandler.execute(new LoginUseCase(), requestValue, new UseCase.UseCaseCallback<LoginUseCase
+                .ResponseValue>() {
             @Override
             public void onSuccess(LoginUseCase.ResponseValue response) {
                 mView.dismissLoading();

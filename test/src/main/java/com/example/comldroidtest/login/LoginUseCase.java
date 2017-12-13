@@ -31,30 +31,34 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
 
         @Override
         public boolean checkInput() {
+            if (username == null) {
+                errors.add("请输入用户名");
+                return false;
+            }
             return true;
         }
     }
 
-    public static final class ResponseValue extends ResponseValuesWrapper{
+    public static final class ResponseValue extends ResponseValuesWrapper {
 
         @SerializedName("deptinfo")
-        @Expose public DeptInfo deptInfo;
+        @Expose
+        public DeptInfo deptInfo;
 
-        public static final class DeptInfo{
-            @Expose public String dcode ;
-            @Expose public String dname ;
-            @Expose public String label ;
+        public static final class DeptInfo {
+            @Expose
+            public String dname;
         }
     }
 
 
     @Override
-    protected Observable<ResponseValue> buildObservable() {
-        // 找个合适的方法去生成service
+    protected Observable<ResponseValue> buildObservable(RequestValues values) {
+        // 找个合适的方法去生成 observable service
         // .....
-        RequestValues requestValues = getRequestValues();
+        // 或者在这里生成任意一个 observable
         Retrofit retrofit = RetrofitCreator.INSTANCE.getInstance();
         LoginService service = retrofit.create(LoginService.class);
-        return service.login(requestValues.getParams());
+        return service.login(values.getParams());
     }
 }
