@@ -9,7 +9,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class DefaultTransformer<T extends UseCase.ResponseValue> implements ObservableTransformer<T, T> {
+public class SchedulerTransformer<T extends UseCase.ResponseValue> implements ObservableTransformer<T, T> {
 
     @Override
     public ObservableSource<T> apply(Observable<T> upstream) {

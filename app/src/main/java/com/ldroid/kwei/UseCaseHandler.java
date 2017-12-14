@@ -17,7 +17,7 @@
 package com.ldroid.kwei;
 
 
-import com.ldroid.kwei.transformer.DefaultTransformer;
+import com.ldroid.kwei.transformer.SchedulerTransformer;
 import com.ldroid.kwei.transformer.ErrorTransformer;
 
 import io.reactivex.Observable;
@@ -38,7 +38,7 @@ public class UseCaseHandler {
             final UseCase<T, R> useCase, T values, UseCase.UseCaseCallback<R> callback) {
         useCase.setRequestValues(values);
         Observable<R> observable = useCase.buildObservable()
-                .compose(new DefaultTransformer<R>())
+                .compose(new SchedulerTransformer<R>())
                 .compose(new ErrorTransformer<R>()) ;
         addDisposable(observable.subscribeWith(new DefaultObserver<>(callback)));
 
