@@ -18,6 +18,7 @@ package com.ldroid.kwei;
 
 
 import com.ldroid.kwei.transformer.DefaultTransformer;
+import com.ldroid.kwei.transformer.ErrorTransformer;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -37,7 +38,8 @@ public class UseCaseHandler {
             final UseCase<T, R> useCase, T values, UseCase.UseCaseCallback<R> callback) {
         useCase.setRequestValues(values);
         Observable<R> observable = useCase.buildObservable()
-                .compose(new DefaultTransformer<R>());
+                .compose(new DefaultTransformer<R>())
+                .compose(new ErrorTransformer<R>()) ;
         addDisposable(observable.subscribeWith(new DefaultObserver<>(callback)));
 
     }
