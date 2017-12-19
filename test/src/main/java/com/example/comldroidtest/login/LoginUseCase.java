@@ -4,13 +4,17 @@
 package com.example.comldroidtest.login;
 
 
+import android.os.SystemClock;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ldroid.kwei.UseCase;
-import com.ldroid.kwei.retrofit.RetrofitCreator;
+import com.ldroid.kwei.retrofit.ServiceGenerator;
+
+import java.util.concurrent.Callable;
 
 import io.reactivex.Observable;
-import retrofit2.Retrofit;
+import io.reactivex.ObservableSource;
 
 public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCase.ResponseValue> {
 
@@ -57,8 +61,14 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
         // 找个合适的方法去生成 observable service
         // .....
         // 或者在这里生成任意一个 observable
-        Retrofit retrofit = RetrofitCreator.INSTANCE.getInstance();
-        LoginService service = retrofit.create(LoginService.class);
-        return service.login(values.getParams());
+        LoginService service = ServiceGenerator.INSTANCE.getService(LoginService.class);
+        final Observable<LoginUseCase.ResponseValue> observer =  service.login(values.getParams());
+        return Observable.defer(new Callable<ObservableSource<LoginUseCase.ResponseValue>>() {
+            @Override
+            public ObservableSource<LoginUseCase.ResponseValue> call() throws Exception {
+                SystemClock.sleep(5000);
+                return observer;
+            }
+        });
     }
 }
