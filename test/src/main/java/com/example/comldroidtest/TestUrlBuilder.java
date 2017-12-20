@@ -6,6 +6,11 @@ import com.ldroid.kwei.retrofit.UrlBuilder;
 
 public class TestUrlBuilder extends UrlBuilder{
 
+
+    public TestUrlBuilder() {
+        put("abc", "http://dmc.eascs.com/easd/");
+    }
+
     @Override
     public String getUrlHeaderName() {
         return LoginService.MAIN_DOMAIN;
@@ -16,4 +21,5 @@ public class TestUrlBuilder extends UrlBuilder{
     public String getBaseUrl() {
         return "http://172.16.180.103:7008/easd/";
     }
+
 }

@@ -26,12 +26,12 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mPresenter = new LoginPresenter(this);
 
         UrlProvider.getUrlPorvider().setUrlBuilder(new TestUrlBuilder());
-        UrlProvider.getUrlPorvider().put("abc", "http://dmc.eascs.com/easd/");
         UrlProvider.getUrlPorvider().put("def", "http://172.16.180.103:7008/easd/");
 
     }
 
     public void onClickLogin(View view) {
+        mPresenter.reqLogin("xianglong.liang", "Abc12345687");
     }
 
     public void onClickCancel(View view) {
