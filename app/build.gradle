@@ -44,6 +44,6 @@ publish {
     groupId = 'com.ngliaxl2' //jCenter上的路径
     artifactId = 'netlib' //要上传的library名称（和二、4中的package相同）
     publishVersion = '1.0.0'
-    desc = 'A network library，that is based on retrofit' //library     的简单描述
+    desc = 'A network library，that is based on retrofit'
     website = 'https://github.com/ngLiaXL/Ovey2' //library的开源地址，例如在github上的地址
 }
