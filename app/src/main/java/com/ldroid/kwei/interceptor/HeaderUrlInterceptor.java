@@ -16,10 +16,10 @@ import okhttp3.Response;
 public class HeaderUrlInterceptor implements Interceptor {
 
     private final UrlBuilder urlBuilder;
-    private final String urlKey;
+    private final String urlHeaderName;
 
     public HeaderUrlInterceptor(UrlBuilder urlBuilder) {
-        urlKey = urlBuilder.getHeaderKey();
+        urlHeaderName = urlBuilder.getUrlHeaderName();
         this.urlBuilder = urlBuilder;
     }
 
@@ -31,10 +31,10 @@ public class HeaderUrlInterceptor implements Interceptor {
     private Request processRequest(Request request) {
         Request.Builder newBuilder = request.newBuilder();
         HttpUrl httpUrl;
-        String urlKey = obtainUrlKeyFromHeaders(request);
-        if (!TextUtils.isEmpty(urlKey)) {
-            httpUrl = getUrl(urlKey);
-            newBuilder.removeHeader(this.urlKey);
+        String headerName = obtainUrlHeaderNameFromHeaders(request);
+        if (!TextUtils.isEmpty(headerName)) {
+            httpUrl = getUrl(headerName);
+            newBuilder.removeHeader(urlHeaderName);
         } else {
             httpUrl = getBaseUrl();
         }
@@ -58,18 +58,18 @@ public class HeaderUrlInterceptor implements Interceptor {
     }
 
 
-    private String obtainUrlKeyFromHeaders(Request request) {
-        List<String> headers = request.headers(urlBuilder.getHeaderKey());
+    private String obtainUrlHeaderNameFromHeaders(Request request) {
+        List<String> headers = request.headers(urlHeaderName);
         if (headers == null || headers.size() == 0)
             return null;
         if (headers.size() > 1)
             throw new IllegalArgumentException("Only one Url-Key in the headers");
-        return request.header(urlKey);
+        return request.header(urlHeaderName);
     }
 
 
-    public HttpUrl getUrl(String urlKey) {
-        return Utils.checkUrl(urlBuilder.get(urlKey));
+    public HttpUrl getUrl(String key) {
+        return Utils.checkUrl(urlBuilder.get(key));
     }
 
     public HttpUrl getBaseUrl() {

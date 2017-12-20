@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
 
         UrlBuilder builder = new UrlBuilder() {
             @Override
-            public String getHeaderKey() {
+            public String getUrlHeaderName() {
                 return LoginService.MAIN_DOMAIN;
             }
 
