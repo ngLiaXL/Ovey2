@@ -61,12 +61,11 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
         // 找个合适的方法去生成 observable service
         // .....
         // 或者在这里生成任意一个 observable
-        LoginService service = ServiceGenerator.INSTANCE.getService(LoginService.class);
+        LoginService service = ServiceGenerator.getInstance().getService(LoginService.class);
         final Observable<LoginUseCase.ResponseValue> observer =  service.login(values.getParams());
         return Observable.defer(new Callable<ObservableSource<LoginUseCase.ResponseValue>>() {
             @Override
             public ObservableSource<LoginUseCase.ResponseValue> call() throws Exception {
-                SystemClock.sleep(5000);
                 return observer;
             }
         });

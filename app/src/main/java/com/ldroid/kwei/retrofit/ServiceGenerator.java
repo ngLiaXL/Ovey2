@@ -1,5 +1,7 @@
 package com.ldroid.kwei.retrofit;
 
+import com.ldroid.kwei.interceptor.HeaderUrlInterceptor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,16 +13,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ServiceGenerator {
 
-    public static final String API_BASE_URL = "http://dmc.eascs.com/easd/";
-    public static final ServiceGenerator INSTANCE = new ServiceGenerator();
+    private static final ServiceGenerator INSTANCE = new ServiceGenerator();
 
     private OkHttpClient.Builder okHttpClientBuilder;
     private Retrofit retrofit;
-    private Map<String, Object> serviceMap;
+    private final Map<String, Object> serviceMap;
+    private final UrlManager urlBuilder;
 
+
+    public static ServiceGenerator getInstance() {
+        return INSTANCE;
+    }
 
     private ServiceGenerator() {
         serviceMap = new HashMap<>();
+        urlBuilder = UrlManager.getInstance();
         initRetrofit(initOkHttpClientBuilder().build());
     }
 
@@ -29,13 +36,14 @@ public class ServiceGenerator {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClientBuilder.addInterceptor(logging);
+        okHttpClientBuilder.addInterceptor(new HeaderUrlInterceptor(urlBuilder));
         return okHttpClientBuilder;
     }
 
     private Retrofit initRetrofit(OkHttpClient client) {
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(API_BASE_URL)
+                .baseUrl(urlBuilder.getBaseDomain())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;

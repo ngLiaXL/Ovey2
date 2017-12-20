@@ -9,13 +9,14 @@ import android.widget.Toast;
 
 import com.example.comldroidtest.login.LoginContract;
 import com.example.comldroidtest.login.LoginPresenter;
+import com.example.comldroidtest.login.LoginService;
 import com.example.comldroidtest.login.LoginUseCase;
+import com.ldroid.kwei.retrofit.UrlManager;
 
 public class MainActivity extends AppCompatActivity implements LoginContract.View {
 
 
     private LoginPresenter mPresenter;
-
     private ProgressBar mProgressBar;
 
     @Override
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         setContentView(R.layout.activity_main);
         mProgressBar = findViewById(R.id.progressbar);
         mPresenter = new LoginPresenter(this);
+
+        UrlManager.getInstance().putBaseDomain("http://dmc.eascs.com/easd/");
+        UrlManager.getInstance().putDomain(LoginService.MAIN_DOMAIN, "http://main.eascs.com/easd/");
+
     }
 
     public void onClickLogin(View view) {
