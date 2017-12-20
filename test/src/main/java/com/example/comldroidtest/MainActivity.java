@@ -9,9 +9,7 @@ import android.widget.Toast;
 
 import com.example.comldroidtest.login.LoginContract;
 import com.example.comldroidtest.login.LoginPresenter;
-import com.example.comldroidtest.login.LoginService;
 import com.example.comldroidtest.login.LoginUseCase;
-import com.ldroid.kwei.retrofit.UrlBuilder;
 import com.ldroid.kwei.retrofit.UrlProvider;
 
 public class MainActivity extends AppCompatActivity implements LoginContract.View {
@@ -27,19 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mProgressBar = findViewById(R.id.progressbar);
         mPresenter = new LoginPresenter(this);
 
-        UrlBuilder builder = new UrlBuilder() {
-            @Override
-            public String getUrlHeaderName() {
-                return LoginService.MAIN_DOMAIN;
-            }
-
-
-            @Override
-            public String getBaseUrl() {
-                return "http://172.16.180.103:7008/easd/";
-            }
-        };
-        UrlProvider.getUrlPorvider().setUrlBuilder(builder);
+        UrlProvider.getUrlPorvider().setUrlBuilder(new TestUrlBuilder());
         UrlProvider.getUrlPorvider().put("abc", "http://dmc.eascs.com/easd/");
         UrlProvider.getUrlPorvider().put("def", "http://172.16.180.103:7008/easd/");
 

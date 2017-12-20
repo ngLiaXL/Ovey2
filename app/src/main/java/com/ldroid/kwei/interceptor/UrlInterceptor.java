@@ -13,12 +13,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 
-public class HeaderUrlInterceptor implements Interceptor {
+public class UrlInterceptor implements Interceptor {
 
     private final UrlBuilder urlBuilder;
     private final String urlHeaderName;
 
-    public HeaderUrlInterceptor(UrlBuilder urlBuilder) {
+    public UrlInterceptor(UrlBuilder urlBuilder) {
         urlHeaderName = urlBuilder.getUrlHeaderName();
         this.urlBuilder = urlBuilder;
     }

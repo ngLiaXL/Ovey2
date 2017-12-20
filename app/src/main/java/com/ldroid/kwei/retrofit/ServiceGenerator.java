@@ -1,6 +1,6 @@
 package com.ldroid.kwei.retrofit;
 
-import com.ldroid.kwei.interceptor.HeaderUrlInterceptor;
+import com.ldroid.kwei.interceptor.UrlInterceptor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +36,7 @@ public class ServiceGenerator {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClientBuilder.addInterceptor(logging);
-        okHttpClientBuilder.addInterceptor(new HeaderUrlInterceptor(urlBuilder));
+        okHttpClientBuilder.addInterceptor(new UrlInterceptor(urlBuilder));
         return okHttpClientBuilder;
     }
 
