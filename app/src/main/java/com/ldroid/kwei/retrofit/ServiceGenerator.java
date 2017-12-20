@@ -18,7 +18,7 @@ public class ServiceGenerator {
     private OkHttpClient.Builder okHttpClientBuilder;
     private Retrofit retrofit;
     private final Map<String, Object> serviceMap;
-    private final UrlManager urlBuilder;
+    private final UrlManager urlManager;
 
 
     public static ServiceGenerator getInstance() {
@@ -27,7 +27,7 @@ public class ServiceGenerator {
 
     private ServiceGenerator() {
         serviceMap = new HashMap<>();
-        urlBuilder = UrlManager.getInstance();
+        urlManager = UrlManager.getInstance();
         initRetrofit(initOkHttpClientBuilder().build());
     }
 
@@ -36,14 +36,14 @@ public class ServiceGenerator {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         okHttpClientBuilder.addInterceptor(logging);
-        okHttpClientBuilder.addInterceptor(new HeaderUrlInterceptor(urlBuilder));
+        okHttpClientBuilder.addInterceptor(new HeaderUrlInterceptor(urlManager));
         return okHttpClientBuilder;
     }
 
     private Retrofit initRetrofit(OkHttpClient client) {
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(urlBuilder.getBaseDomain())
+                .baseUrl(urlManager.getBaseDomain())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;

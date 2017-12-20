@@ -16,10 +16,10 @@ import static com.ldroid.kwei.retrofit.UrlManager.DOMAIN_NAME;
 
 public class HeaderUrlInterceptor implements Interceptor {
 
-    private final UrlManager urlBuilder;
+    private final UrlManager urlManager;
 
-    public HeaderUrlInterceptor(UrlManager urlBuilder) {
-        this.urlBuilder = urlBuilder;
+    public HeaderUrlInterceptor(UrlManager urlManager) {
+        this.urlManager = urlManager;
     }
 
     @Override
@@ -68,10 +68,10 @@ public class HeaderUrlInterceptor implements Interceptor {
 
 
     public HttpUrl getDomain(String domainName) {
-        return urlBuilder.getDomain(domainName);
+        return urlManager.getDomain(domainName);
     }
 
     public HttpUrl getGlobalDomain() {
-        return urlBuilder.getBaseDomain();
+        return urlManager.getBaseDomain();
     }
 }
