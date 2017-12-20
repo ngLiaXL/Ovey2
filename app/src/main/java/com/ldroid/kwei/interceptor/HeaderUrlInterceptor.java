@@ -2,7 +2,7 @@ package com.ldroid.kwei.interceptor;
 
 import android.text.TextUtils;
 
-import com.ldroid.kwei.retrofit.UrlManager;
+import com.ldroid.kwei.retrofit.UrlBuilder;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,14 +12,15 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.ldroid.kwei.retrofit.UrlManager.DOMAIN_NAME;
 
 public class HeaderUrlInterceptor implements Interceptor {
 
-    private final UrlManager urlManager;
+    private final UrlBuilder urlBuilder;
+    private final String urlKey;
 
-    public HeaderUrlInterceptor(UrlManager urlManager) {
-        this.urlManager = urlManager;
+    public HeaderUrlInterceptor(UrlBuilder urlBuilder) {
+        urlKey = urlBuilder.getHeaderKey();
+        this.urlBuilder = urlBuilder;
     }
 
     @Override
@@ -30,12 +31,12 @@ public class HeaderUrlInterceptor implements Interceptor {
     private Request processRequest(Request request) {
         Request.Builder newBuilder = request.newBuilder();
         HttpUrl httpUrl;
-        String domainName = obtainDomainNameFromHeaders(request);
-        if (!TextUtils.isEmpty(domainName)) {
-            httpUrl = getDomain(domainName);
-            newBuilder.removeHeader(DOMAIN_NAME);
+        String urlKey = obtainUrlKeyFromHeaders(request);
+        if (!TextUtils.isEmpty(urlKey)) {
+            httpUrl = getUrl(urlKey);
+            newBuilder.removeHeader(this.urlKey);
         } else {
-            httpUrl = getGlobalDomain();
+            httpUrl = getBaseUrl();
         }
         if (null != httpUrl) {
             HttpUrl newUrl = parseUrl(httpUrl, request.url());
@@ -47,31 +48,31 @@ public class HeaderUrlInterceptor implements Interceptor {
     }
 
 
-    private HttpUrl parseUrl(HttpUrl domainUrl, HttpUrl url) {
-        if (null == domainUrl) return url;
+    private HttpUrl parseUrl(HttpUrl headerUrl, HttpUrl url) {
+        if (null == headerUrl) return url;
         return url.newBuilder()
-                .scheme(domainUrl.scheme())
-                .host(domainUrl.host())
-                .port(domainUrl.port())
+                .scheme(headerUrl.scheme())
+                .host(headerUrl.host())
+                .port(headerUrl.port())
                 .build();
     }
 
 
-    private String obtainDomainNameFromHeaders(Request request) {
-        List<String> headers = request.headers(DOMAIN_NAME);
+    private String obtainUrlKeyFromHeaders(Request request) {
+        List<String> headers = request.headers(urlBuilder.getHeaderKey());
         if (headers == null || headers.size() == 0)
             return null;
         if (headers.size() > 1)
-            throw new IllegalArgumentException("Only one Domain-Name in the headers");
-        return request.header(DOMAIN_NAME);
+            throw new IllegalArgumentException("Only one Url-Key in the headers");
+        return request.header(urlKey);
     }
 
 
-    public HttpUrl getDomain(String domainName) {
-        return urlManager.getDomain(domainName);
+    public HttpUrl getUrl(String urlKey) {
+        return Utils.checkUrl(urlBuilder.get(urlKey));
     }
 
-    public HttpUrl getGlobalDomain() {
-        return urlManager.getBaseDomain();
+    public HttpUrl getBaseUrl() {
+        return Utils.checkUrl(urlBuilder.getBaseUrl());
     }
 }

@@ -11,7 +11,8 @@ import com.example.comldroidtest.login.LoginContract;
 import com.example.comldroidtest.login.LoginPresenter;
 import com.example.comldroidtest.login.LoginService;
 import com.example.comldroidtest.login.LoginUseCase;
-import com.ldroid.kwei.retrofit.UrlManager;
+import com.ldroid.kwei.retrofit.UrlBuilder;
+import com.ldroid.kwei.retrofit.UrlProvider;
 
 public class MainActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -26,15 +27,26 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mProgressBar = findViewById(R.id.progressbar);
         mPresenter = new LoginPresenter(this);
 
-        UrlManager.getInstance().putBaseDomain("http://dmc.eascs.com/easd/");
-        UrlManager.getInstance().putDomain(LoginService.MAIN_DOMAIN, "http://main.eascs.com/easd/");
+        UrlBuilder builder = new UrlBuilder() {
+            @Override
+            public String getHeaderKey() {
+                return LoginService.MAIN_DOMAIN;
+            }
+
+
+            @Override
+            public String getBaseUrl() {
+                return "http://172.16.180.103:7008/easd/";
+            }
+        };
+        UrlProvider.getUrlPorvider().setUrlBuilder(builder);
+        UrlProvider.getUrlPorvider().put("abc", "http://dmc.eascs.com/easd/");
+        UrlProvider.getUrlPorvider().put("def", "http://172.16.180.103:7008/easd/");
 
     }
 
     public void onClickLogin(View view) {
         mPresenter.reqLogin("xianglong.liang", "Abc12345687");
-
-
     }
 
     public void onClickCancel(View view) {

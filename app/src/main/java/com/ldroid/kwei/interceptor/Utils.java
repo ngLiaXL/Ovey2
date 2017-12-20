@@ -1,4 +1,4 @@
-package com.ldroid.kwei.retrofit;
+package com.ldroid.kwei.interceptor;
 
 import okhttp3.HttpUrl;
 
