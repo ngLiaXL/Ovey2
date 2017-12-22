@@ -35,7 +35,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
 
 }
@@ -43,7 +42,7 @@ publish {
     userOrg = 'ngliaxl2' //在https://bintray.com上注册的用户名
     groupId = 'com.ngliaxl2' //jCenter上的路径
     artifactId = 'netlib' //要上传的library名称（和二、4中的package相同）
-    publishVersion = '1.0.0'
+    publishVersion = '1.0.1'
     desc = 'A network library，that is based on retrofit'
     website = 'https://github.com/ngLiaXL/Ovey2' //library的开源地址，例如在github上的地址
 }

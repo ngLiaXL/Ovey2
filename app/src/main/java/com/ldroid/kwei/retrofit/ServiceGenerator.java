@@ -1,12 +1,12 @@
 package com.ldroid.kwei.retrofit;
 
+import com.ldroid.kwei.interceptor.HttpLoggingInterceptor;
 import com.ldroid.kwei.interceptor.UrlInterceptor;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
