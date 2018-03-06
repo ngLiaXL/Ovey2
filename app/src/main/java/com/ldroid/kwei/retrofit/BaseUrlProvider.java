@@ -6,26 +6,26 @@ import android.support.annotation.NonNull;
 public class BaseUrlProvider {
 
     @NonNull
-    private static BaseUrlBuilder sUrlBuilder;
+    private static BaseUrlFactory sUrlFactory;
 
     private BaseUrlProvider() {
     }
 
 
-    public static void setUrlBuilder(BaseUrlBuilder urlBuilder) {
-        sUrlBuilder = urlBuilder;
+    public static void setUrlBuilder(BaseUrlFactory urlFactory) {
+        sUrlFactory = urlFactory;
     }
 
-    public static BaseUrlBuilder getUrlBuilder() {
-        return sUrlBuilder;
+    public static BaseUrlFactory getUrlBuilder() {
+        return sUrlFactory;
     }
 
     public static void put(String key, String value) {
-        sUrlBuilder.put(key, value);
+        sUrlFactory.put(key, value);
     }
 
     public static String remove(String key) {
-        return sUrlBuilder.remove(key);
+        return sUrlFactory.remove(key);
     }
 
 }

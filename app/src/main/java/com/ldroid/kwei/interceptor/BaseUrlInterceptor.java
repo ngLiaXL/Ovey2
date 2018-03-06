@@ -2,7 +2,7 @@ package com.ldroid.kwei.interceptor;
 
 import android.text.TextUtils;
 
-import com.ldroid.kwei.retrofit.BaseUrlBuilder;
+import com.ldroid.kwei.retrofit.BaseUrlFactory;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,10 +15,10 @@ import okhttp3.Response;
 
 public class BaseUrlInterceptor implements Interceptor {
 
-    private final BaseUrlBuilder urlBuilder;
+    private final BaseUrlFactory urlBuilder;
     private final String urlHeaderName;
 
-    public BaseUrlInterceptor(BaseUrlBuilder urlBuilder) {
+    public BaseUrlInterceptor(BaseUrlFactory urlBuilder) {
         urlHeaderName = urlBuilder.getUrlHeaderName();
         this.urlBuilder = urlBuilder;
     }
