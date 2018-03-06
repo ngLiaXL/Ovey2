@@ -17,7 +17,7 @@ public interface LoginService {
     String MAIN_DOMAIN = "key";
 
     @Headers({MAIN_DOMAIN + ":" + "abc"})
-    @POST("dmcm.do?action=REPORTLOGIN")
+    @POST("sdm.do?action=LOGIN")
     @FormUrlEncoded
     Observable<LoginUseCase.ResponseValue> login(@FieldMap Map<String, String> params);
     @GET("misc/oa_desktop_url")

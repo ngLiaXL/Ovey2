@@ -24,13 +24,10 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
         public String username;
         @Expose
         public String password;
-        @Expose
-        public String type;
 
         public RequestValues(String username, String password) {
             this.username = username;
             this.password = password;
-            this.type = "LOGIN";
         }
 
         @Override
@@ -45,14 +42,10 @@ public class LoginUseCase extends UseCase<LoginUseCase.RequestValues, LoginUseCa
 
     public static final class ResponseValue extends ResponseValuesWrapper {
 
-        @SerializedName("deptinfo")
+        @SerializedName("username")
         @Expose
-        public DeptInfo deptInfo;
+        public String username;
 
-        public static final class DeptInfo {
-            @Expose
-            public String dname;
-        }
     }
 
 

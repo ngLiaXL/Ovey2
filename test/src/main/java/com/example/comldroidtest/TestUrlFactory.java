@@ -8,7 +8,7 @@ public class TestUrlFactory extends BaseUrlFactory {
 
 
     public TestUrlFactory() {
-        put("abc", "http://dmc.eascs.com/easd/");
+        put("abc", "http://main.dev.eascs.com/easd/");
     }
 
     @Override
@@ -19,7 +19,7 @@ public class TestUrlFactory extends BaseUrlFactory {
 
     @Override
     public String getBaseUrl() {
-        return "http://im.eascs.com/";
+        return "http://main.dev.eascs.com/easd/";
     }
 
 }
