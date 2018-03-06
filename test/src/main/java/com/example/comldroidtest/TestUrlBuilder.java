@@ -19,7 +19,7 @@ public class TestUrlBuilder extends UrlBuilder{
 
     @Override
     public String getBaseUrl() {
-        return "http://172.16.180.103:7008/easd/";
+        return "http://im.eascs.com/";
     }
 
 }

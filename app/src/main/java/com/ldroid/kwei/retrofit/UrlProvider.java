@@ -12,20 +12,26 @@ public class UrlProvider {
     private UrlProvider() {
     }
 
-    public static UrlProvider getUrlPorvider() {
+
+    public static void init(@NonNull UrlBuilder urlBuilder) {
+        INSTANCE.urlBuilder = urlBuilder;
+    }
+
+    public static UrlProvider getInstance() {
         return INSTANCE;
     }
 
-    public UrlBuilder getUrlBuilder() {
+    @NonNull
+    public UrlBuilder providUrl() {
         return urlBuilder;
-    }
-
-    public void setUrlBuilder(@NonNull UrlBuilder urlBuilder) {
-        this.urlBuilder = urlBuilder;
     }
 
     public void put(String key, String value) {
         urlBuilder.put(key, value);
+    }
+
+    public String remove(String key) {
+        return urlBuilder.remove(key);
     }
 
 }

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
     }
 
     public void onClickLogin(View view) {
+        mPresenter.reqLogin("xianglong.liang", "Abc12345687");
     }
 
     public void onClickCancel(View view) {

@@ -59,6 +59,9 @@ public class UrlInterceptor implements Interceptor {
 
 
     private String obtainUrlHeaderNameFromHeaders(Request request) {
+        if(urlHeaderName == null){
+            return null ;
+        }
         List<String> headers = request.headers(urlHeaderName);
         if (headers == null || headers.size() == 0)
             return null;

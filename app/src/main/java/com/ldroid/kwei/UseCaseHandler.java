@@ -17,8 +17,8 @@
 package com.ldroid.kwei;
 
 
-import com.ldroid.kwei.transformer.SchedulerTransformer;
 import com.ldroid.kwei.transformer.ErrorTransformer;
+import com.ldroid.kwei.transformer.SchedulerTransformer;
 
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;

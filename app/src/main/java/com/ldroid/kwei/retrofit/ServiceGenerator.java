@@ -1,5 +1,9 @@
 package com.ldroid.kwei.retrofit;
 
+import com.ldroid.kwei.App;
+import com.ldroid.kwei.cookie.PersistentCookieJar;
+import com.ldroid.kwei.cookie.cache.SetCookieCache;
+import com.ldroid.kwei.cookie.persistence.SharedPrefsCookiePersistor;
 import com.ldroid.kwei.interceptor.HttpLoggingInterceptor;
 import com.ldroid.kwei.interceptor.UrlInterceptor;
 
@@ -15,11 +19,8 @@ public class ServiceGenerator {
 
     private static final ServiceGenerator INSTANCE = new ServiceGenerator();
 
-    private OkHttpClient.Builder okHttpClientBuilder;
     private Retrofit retrofit;
     private final Map<String, Object> serviceMap;
-    private final UrlBuilder urlBuilder;
-
 
     public static ServiceGenerator getInstance() {
         return INSTANCE;
@@ -27,23 +28,24 @@ public class ServiceGenerator {
 
     private ServiceGenerator() {
         serviceMap = new HashMap<>();
-        urlBuilder = UrlProvider.getUrlPorvider().getUrlBuilder();
-        initRetrofit(initOkHttpClientBuilder().build());
+        initRetrofit(defaultClient().build());
     }
 
-    private OkHttpClient.Builder initOkHttpClientBuilder() {
-        okHttpClientBuilder = new OkHttpClient.Builder();
+
+    private OkHttpClient.Builder defaultClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        okHttpClientBuilder.addInterceptor(logging);
-        okHttpClientBuilder.addInterceptor(new UrlInterceptor(urlBuilder));
-        return okHttpClientBuilder;
+        builder.addInterceptor(logging);
+        builder.addInterceptor(new UrlInterceptor(UrlProvider.getInstance().providUrl()));
+        builder.cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.INSTANCE)));
+        return builder;
     }
 
     private Retrofit initRetrofit(OkHttpClient client) {
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(urlBuilder.getBaseUrl())
+                .baseUrl(UrlProvider.getInstance().providUrl().getBaseUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;
