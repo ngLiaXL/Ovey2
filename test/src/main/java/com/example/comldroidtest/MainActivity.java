@@ -35,7 +35,14 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mPresenter.reqLogin("xianglong.liang", "Abc12345687");
     }
 
+    public void onClickUpload(View view) {
+    }
+
+    public void onClickDownload(View view) {
+    }
+
     public void onClickCancel(View view) {
+        hideLoading();
         mPresenter.destroy();
     }
 
@@ -56,11 +63,12 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
 
     @Override
     public void onError(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRespLogin(LoginUseCase.ResponseValue response) {
-        Toast.makeText(this, response.username, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, response.message, Toast.LENGTH_LONG).show();
     }
 
 }

@@ -1,19 +1,24 @@
 package com.example.comldroidtest;
 
-import com.example.comldroidtest.login.LoginService;
 import com.ldroid.kwei.retrofit.BaseUrlFactory;
 
 
 public class TestUrlFactory extends BaseUrlFactory {
 
+    public static final String MAIN_DOMAIN = "key";
+
+    public interface UrlKeys {
+        String SD = "SD";
+        String GD = "GD";
+    }
 
     public TestUrlFactory() {
-        put("abc", "http://main.dev.eascs.com/easd/");
+        put(UrlKeys.SD, "http://main.dev.eascs.com/easd/");
     }
 
     @Override
     public String getUrlHeaderName() {
-        return LoginService.MAIN_DOMAIN;
+        return MAIN_DOMAIN;
     }
 
 

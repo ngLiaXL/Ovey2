@@ -9,4 +9,5 @@ import com.ldroid.kwei.UseCase;
 public class ResponseValuesWrapper implements UseCase.ResponseValue {
 
     @Expose public String status ;
+    @Expose public String message ;
 }
