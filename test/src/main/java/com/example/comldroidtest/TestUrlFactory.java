@@ -4,10 +4,10 @@ import com.example.comldroidtest.login.LoginService;
 import com.ldroid.kwei.retrofit.BaseUrlFactory;
 
 
-public class TestUrlBuilder extends BaseUrlFactory {
+public class TestUrlFactory extends BaseUrlFactory {
 
 
-    public TestUrlBuilder() {
+    public TestUrlFactory() {
         put("abc", "http://dmc.eascs.com/easd/");
     }
 

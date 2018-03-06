@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mProgressBar = findViewById(R.id.progressbar);
         mPresenter = new LoginPresenter(this);
 
-        BaseUrlProvider.setUrlBuilder(new TestUrlBuilder());
+        BaseUrlProvider.setUrlFactory(new TestUrlFactory());
         OkHttpClientProvider.setOkHttpClientFactory(new DefaultOkHttpClientFactory());
 
     }

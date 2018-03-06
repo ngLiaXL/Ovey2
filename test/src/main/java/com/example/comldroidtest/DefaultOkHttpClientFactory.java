@@ -21,7 +21,7 @@ public class DefaultOkHttpClientFactory implements OkHttpClientFactory {
 
         return new OkHttpClient.Builder()
                 .addInterceptor(logging)
-                .addInterceptor(new BaseUrlInterceptor(BaseUrlProvider.getUrlBuilder()))
+                .addInterceptor(new BaseUrlInterceptor(BaseUrlProvider.getUrlFactory()))
                 .cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.INSTANCE))).build();
     }
 }

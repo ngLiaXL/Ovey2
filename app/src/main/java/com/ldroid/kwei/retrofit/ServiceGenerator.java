@@ -27,7 +27,7 @@ public class ServiceGenerator {
     private Retrofit initRetrofit() {
         retrofit = new Retrofit.Builder()
                 .client(OkHttpClientProvider.createClient())
-                .baseUrl(BaseUrlProvider.getUrlBuilder().getBaseUrl())
+                .baseUrl(BaseUrlProvider.getUrlFactory().getBaseUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;

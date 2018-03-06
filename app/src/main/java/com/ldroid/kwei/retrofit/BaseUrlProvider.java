@@ -12,11 +12,11 @@ public class BaseUrlProvider {
     }
 
 
-    public static void setUrlBuilder(BaseUrlFactory urlFactory) {
+    public static void setUrlFactory(BaseUrlFactory urlFactory) {
         sUrlFactory = urlFactory;
     }
 
-    public static BaseUrlFactory getUrlBuilder() {
+    public static BaseUrlFactory getUrlFactory() {
         return sUrlFactory;
     }
 
