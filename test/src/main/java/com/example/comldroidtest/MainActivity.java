@@ -10,7 +10,8 @@ import android.widget.Toast;
 import com.example.comldroidtest.login.LoginContract;
 import com.example.comldroidtest.login.LoginPresenter;
 import com.example.comldroidtest.login.LoginUseCase;
-import com.ldroid.kwei.retrofit.UrlProvider;
+import com.ldroid.kwei.retrofit.OkHttpClientProvider;
+import com.ldroid.kwei.retrofit.BaseUrlProvider;
 
 public class MainActivity extends AppCompatActivity implements LoginContract.View {
 
@@ -25,8 +26,8 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
         mProgressBar = findViewById(R.id.progressbar);
         mPresenter = new LoginPresenter(this);
 
-        UrlProvider.getUrlPorvider().setUrlBuilder(new TestUrlBuilder());
-        UrlProvider.getUrlPorvider().put("def", "http://172.16.180.103:7008/easd/");
+        BaseUrlProvider.setUrlBuilder(new TestUrlBuilder());
+        OkHttpClientProvider.setOkHttpClientFactory(new DefaultOkHttpClientFactory());
 
     }
 

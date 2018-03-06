@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import java.util.HashMap;
 
-public abstract class UrlBuilder extends HashMap<String, String> {
+public abstract class BaseUrlBuilder extends HashMap<String, String> {
 
     @Nullable
     public abstract String getUrlHeaderName();

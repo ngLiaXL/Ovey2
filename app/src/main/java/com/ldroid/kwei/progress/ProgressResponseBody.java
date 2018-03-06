@@ -1,6 +1,6 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 
-package com.ldroid.kwei;
+package com.ldroid.kwei.progress;
 
 import android.support.annotation.Nullable;
 

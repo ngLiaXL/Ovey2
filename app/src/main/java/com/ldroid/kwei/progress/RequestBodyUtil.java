@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.ldroid.kwei;
+package com.ldroid.kwei.progress;
 
 import okhttp3.RequestBody;
 

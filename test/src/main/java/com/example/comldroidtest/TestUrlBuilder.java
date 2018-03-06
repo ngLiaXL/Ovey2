@@ -1,10 +1,10 @@
 package com.example.comldroidtest;
 
 import com.example.comldroidtest.login.LoginService;
-import com.ldroid.kwei.retrofit.UrlBuilder;
+import com.ldroid.kwei.retrofit.BaseUrlBuilder;
 
 
-public class TestUrlBuilder extends UrlBuilder{
+public class TestUrlBuilder extends BaseUrlBuilder {
 
 
     public TestUrlBuilder() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ldroid.kwei;
+package com.ldroid.kwei.progress;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;

@@ -1,16 +1,8 @@
 package com.ldroid.kwei.retrofit;
 
-import com.ldroid.kwei.App;
-import com.ldroid.kwei.cookie.PersistentCookieJar;
-import com.ldroid.kwei.cookie.cache.SetCookieCache;
-import com.ldroid.kwei.cookie.persistence.SharedPrefsCookiePersistor;
-import com.ldroid.kwei.interceptor.HttpLoggingInterceptor;
-import com.ldroid.kwei.interceptor.UrlInterceptor;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -28,24 +20,14 @@ public class ServiceGenerator {
 
     private ServiceGenerator() {
         serviceMap = new HashMap<>();
-        initRetrofit(defaultClient().build());
+        initRetrofit();
     }
 
 
-    private OkHttpClient.Builder defaultClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-        builder.addInterceptor(logging);
-        builder.addInterceptor(new UrlInterceptor(UrlProvider.getInstance().providUrl()));
-        builder.cookieJar(new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(App.INSTANCE)));
-        return builder;
-    }
-
-    private Retrofit initRetrofit(OkHttpClient client) {
+    private Retrofit initRetrofit() {
         retrofit = new Retrofit.Builder()
-                .client(client)
-                .baseUrl(UrlProvider.getInstance().providUrl().getBaseUrl())
+                .client(OkHttpClientProvider.createClient())
+                .baseUrl(BaseUrlProvider.getUrlBuilder().getBaseUrl())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         return retrofit;

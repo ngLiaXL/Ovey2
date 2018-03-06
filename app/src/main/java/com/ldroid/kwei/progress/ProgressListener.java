@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-package com.ldroid.kwei;
+package com.ldroid.kwei.progress;
 
 public interface ProgressListener {
     void onProgress(long bytesWritten, long contentLength, boolean done);
