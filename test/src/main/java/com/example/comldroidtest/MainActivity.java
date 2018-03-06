@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.comldroidtest.login.LoginContract;
 import com.example.comldroidtest.login.LoginPresenter;
 import com.example.comldroidtest.login.LoginUseCase;
+import com.example.comldroidtest.login.UploadUseCase;
 import com.ldroid.kwei.retrofit.OkHttpClientProvider;
 import com.ldroid.kwei.retrofit.BaseUrlProvider;
 
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
     }
 
     public void onClickUpload(View view) {
+        mPresenter.reqUpload() ;
     }
 
     public void onClickDownload(View view) {
@@ -68,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements LoginContract.Vie
 
     @Override
     public void onRespLogin(LoginUseCase.ResponseValue response) {
+        Toast.makeText(this, response.message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRespUpload(UploadUseCase.ResponseValue response) {
         Toast.makeText(this, response.message, Toast.LENGTH_LONG).show();
     }
 

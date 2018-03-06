@@ -13,7 +13,7 @@ public class TestUrlFactory extends BaseUrlFactory {
     }
 
     public TestUrlFactory() {
-        put(UrlKeys.SD, "http://main.dev.eascs.com/easd/");
+        put(UrlKeys.SD, "");
     }
 
     @Override
@@ -24,7 +24,7 @@ public class TestUrlFactory extends BaseUrlFactory {
 
     @Override
     public String getBaseUrl() {
-        return "http://main.dev.eascs.com/easd/";
+        return "";
     }
 
 }

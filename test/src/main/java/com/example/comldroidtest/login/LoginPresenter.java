@@ -46,6 +46,32 @@ public class LoginPresenter implements LoginContract.Presenter {
         });
     }
 
+    public void reqUpload() {
+        UploadUseCase.RequestValues requestValue = new UploadUseCase.RequestValues();
+        if (!requestValue.checkInput()) {
+            mView.onError("....");
+            return;
+        }
+        mView.showLoading("账号登录...");
+        mUseCaseHandler.execute(new UploadUseCase(), requestValue, new UseCase
+                .UseCaseCallback<UploadUseCase
+                .ResponseValue>() {
+            @Override
+            public void onSuccess(UploadUseCase.ResponseValue response) {
+                mView.hideLoading();
+                // ...
+                mView.onRespUpload(response);
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                mView.hideLoading();
+                // ...
+                mView.onError(exception.toString());
+            }
+        });
+    }
+
     @Override
     public void resume() {
 

@@ -10,7 +10,9 @@ public interface LoginContract {
 
 	interface View extends BaseView {
 		void onRespLogin(LoginUseCase.ResponseValue response);
-	}
+
+        void onRespUpload(UploadUseCase.ResponseValue response);
+    }
 
 	interface Presenter extends BasePresenter {
 		void reqLogin(@NonNull String phone, @NonNull String pwd);
