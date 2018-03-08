@@ -1,20 +1,19 @@
-package com.example.comldroidtest.login;
-
-import android.support.annotation.NonNull;
+package com.example.comldroidtest.test;
 
 import com.example.comldroidtest.mvp.BasePresenter;
 import com.example.comldroidtest.mvp.BaseView;
 
 
-public interface LoginContract {
+public interface TestContract {
 
 	interface View extends BaseView {
-		void onRespLogin(LoginUseCase.ResponseValue response);
+		void onRespGetTest(GetUseCase.ResponseValue response);
 
         void onRespUpload(UploadUseCase.ResponseValue response);
-    }
+
+		void onRespTestPost(PostUseCase.ResponseValue response);
+	}
 
 	interface Presenter extends BasePresenter {
-		void reqLogin(@NonNull String phone, @NonNull String pwd);
 	}
 }

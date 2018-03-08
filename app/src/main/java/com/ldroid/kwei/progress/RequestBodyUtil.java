@@ -9,7 +9,7 @@ package com.ldroid.kwei.progress;
 
 import okhttp3.RequestBody;
 
-/*package*/ class RequestBodyUtil {
+public class RequestBodyUtil {
 
     public static ProgressRequestBody createProgressRequest(
             RequestBody requestBody,

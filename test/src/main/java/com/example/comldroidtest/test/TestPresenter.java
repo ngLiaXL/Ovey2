@@ -1,40 +1,37 @@
 /**
  *
  */
-package com.example.comldroidtest.login;
-
-import android.support.annotation.NonNull;
+package com.example.comldroidtest.test;
 
 import com.ldroid.kwei.UseCase;
 import com.ldroid.kwei.UseCaseHandler;
 
-public class LoginPresenter implements LoginContract.Presenter {
+public class TestPresenter implements TestContract.Presenter {
 
-    private LoginContract.View mView;
+    private TestContract.View mView;
     private UseCaseHandler mUseCaseHandler;
 
 
-    public LoginPresenter(LoginContract.View view) {
+    public TestPresenter(TestContract.View view) {
         this.mView = view;
         mUseCaseHandler = new UseCaseHandler();
     }
 
 
-    @Override
-    public void reqLogin(@NonNull String name, @NonNull String password) {
-        LoginUseCase.RequestValues requestValue = new LoginUseCase.RequestValues(name, password);
+    public void reqTestGet(String q, int start, int count) {
+        GetUseCase.RequestValues requestValue = new GetUseCase.RequestValues(q, start, count);
         if (!requestValue.checkInput()) {
             mView.onError("....");
             return;
         }
-        mView.showLoading("账号登录...");
-        mUseCaseHandler.execute(new LoginUseCase(), requestValue, new UseCase.UseCaseCallback<LoginUseCase
+        mView.showLoading("请求网络...");
+        mUseCaseHandler.execute(new GetUseCase(), requestValue, new UseCase.UseCaseCallback<GetUseCase
                 .ResponseValue>() {
             @Override
-            public void onSuccess(LoginUseCase.ResponseValue response) {
+            public void onSuccess(GetUseCase.ResponseValue response) {
                 mView.hideLoading();
                 // ...
-                mView.onRespLogin(response);
+                mView.onRespGetTest(response);
             }
 
             @Override
@@ -45,6 +42,33 @@ public class LoginPresenter implements LoginContract.Presenter {
             }
         });
     }
+
+
+    public void reqTestPost(String q, int start, int count) {
+        PostUseCase.RequestValues requestValue = new PostUseCase.RequestValues(q, start, count);
+        if (!requestValue.checkInput()) {
+            mView.onError("....");
+            return;
+        }
+        mView.showLoading("请求网络...");
+        mUseCaseHandler.execute(new PostUseCase(), requestValue, new PostUseCase.UseCaseCallback<PostUseCase
+                .ResponseValue>() {
+            @Override
+            public void onSuccess(PostUseCase.ResponseValue response) {
+                mView.hideLoading();
+                // ...
+                mView.onRespTestPost(response);
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                mView.hideLoading();
+                // ...
+                mView.onError(exception.toString());
+            }
+        });
+    }
+
 
     public void reqUpload() {
         UploadUseCase.RequestValues requestValue = new UploadUseCase.RequestValues();

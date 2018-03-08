@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.example.comldroidtest.login;
+package com.example.comldroidtest.test;
 
 
 import android.os.Environment;
@@ -41,7 +41,7 @@ public class UploadUseCase extends UseCase<UploadUseCase.RequestValues, UploadUs
 
     @Override
     protected Observable<ResponseValue> buildObservable(RequestValues values) {
-        LoginService service = ServiceGenerator.getInstance().getService(LoginService.class);
+        TestService service = ServiceGenerator.getInstance().getService(TestService.class);
 
         File file = new File(Environment.getExternalStorageDirectory(), "icon.png");
         RequestBody photo = RequestBody.create(MediaType.parse("image/png"), file);
@@ -58,6 +58,6 @@ public class UploadUseCase extends UseCase<UploadUseCase.RequestValues, UploadUs
         photos.put("data", RequestBody.create(null, new Gson().toJson(params)));
 
 
-        return service.upload(photos);
+        return service.testUpload(photos);
     }
 }
