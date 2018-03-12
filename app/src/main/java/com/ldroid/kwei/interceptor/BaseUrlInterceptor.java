@@ -15,12 +15,12 @@ import okhttp3.Response;
 
 public class BaseUrlInterceptor implements Interceptor {
 
-    private final BaseUrlFactory urlBuilder;
+    private final BaseUrlFactory urlFactory;
     private final String urlHeaderName;
 
-    public BaseUrlInterceptor(BaseUrlFactory urlBuilder) {
-        urlHeaderName = urlBuilder.getUrlHeaderName();
-        this.urlBuilder = urlBuilder;
+    public BaseUrlInterceptor(BaseUrlFactory urlFactory) {
+        urlHeaderName = urlFactory.getUrlHeaderName();
+        this.urlFactory = urlFactory;
     }
 
     @Override
@@ -72,10 +72,10 @@ public class BaseUrlInterceptor implements Interceptor {
 
 
     public HttpUrl getUrl(String key) {
-        return Utils.checkUrl(urlBuilder.get(key));
+        return Utils.checkUrl(urlFactory.get(key));
     }
 
     public HttpUrl getBaseUrl() {
-        return Utils.checkUrl(urlBuilder.getBaseUrl());
+        return Utils.checkUrl(urlFactory.getBaseUrl());
     }
 }
