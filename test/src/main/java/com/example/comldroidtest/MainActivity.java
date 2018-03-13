@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.comldroidtest.test.HttpsUseCase;
 import com.example.comldroidtest.test.PostUseCase;
 import com.example.comldroidtest.test.TestContract;
 import com.example.comldroidtest.test.TestPresenter;
@@ -39,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements TestContract.View
 
     public void onClickTestPost(View view) {
         mPresenter.reqTestPost("小王子", 0, 3);
+    }
+
+    public void onClickHttps(View view) {
+        mPresenter.testHttps();
     }
 
     public void onClickUpload(View view) {
@@ -86,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements TestContract.View
     @Override
     public void onRespTestPost(PostUseCase.ResponseValue response) {
         Toast.makeText(this, String.valueOf(response.count), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRespHttps(HttpsUseCase.ResponseValue response) {
+        Toast.makeText(this, "====", Toast.LENGTH_LONG).show();
     }
 
 }

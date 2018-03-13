@@ -12,7 +12,9 @@ public interface TestContract {
         void onRespUpload(UploadUseCase.ResponseValue response);
 
 		void onRespTestPost(PostUseCase.ResponseValue response);
-	}
+
+        void onRespHttps(HttpsUseCase.ResponseValue response);
+    }
 
 	interface Presenter extends BasePresenter {
 	}

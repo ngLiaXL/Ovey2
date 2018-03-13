@@ -69,6 +69,30 @@ public class TestPresenter implements TestContract.Presenter {
         });
     }
 
+    public void testHttps() {
+        HttpsUseCase.RequestValues requestValue = new HttpsUseCase.RequestValues();
+        if (!requestValue.checkInput()) {
+            mView.onError("....");
+            return;
+        }
+        mView.showLoading("请求网络...");
+        mUseCaseHandler.execute(new HttpsUseCase(), requestValue, new HttpsUseCase.UseCaseCallback<HttpsUseCase
+                .ResponseValue>() {
+            @Override
+            public void onSuccess(HttpsUseCase.ResponseValue response) {
+                mView.hideLoading();
+                // ...
+                mView.onRespHttps(response);
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                mView.hideLoading();
+                // ...
+                mView.onError(exception.toString());
+            }
+        });
+    }
 
     public void reqUpload() {
         UploadUseCase.RequestValues requestValue = new UploadUseCase.RequestValues();

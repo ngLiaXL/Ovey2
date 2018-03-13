@@ -14,6 +14,7 @@ import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 import static com.example.comldroidtest.TestUrlFactory.MAIN_DOMAIN;
+import static com.example.comldroidtest.TestUrlFactory.UrlKeys.HTTPS;
 import static com.example.comldroidtest.TestUrlFactory.UrlKeys.SD;
 
 
@@ -22,11 +23,15 @@ public interface TestService {
 
     @Headers({MAIN_DOMAIN + ":" + SD})
     @FormUrlEncoded
-    @POST("/v2/book/search")
+    @POST("v2/book/search")
     Observable<PostUseCase.ResponseValue> testPost(@FieldMap Map<String, String> params);
 
-    @GET("/v2/book/search")
+    @GET("v2/book/search")
     Observable<GetUseCase.ResponseValue> testGet(@QueryMap Map<String, String> params);
+
+    @GET("otn")
+    @Headers({MAIN_DOMAIN + ":" + HTTPS})
+    Observable<HttpsUseCase.ResponseValue> testHttps();
 
     @Multipart
     @POST("sdmupload.do?action=UPLOAD")

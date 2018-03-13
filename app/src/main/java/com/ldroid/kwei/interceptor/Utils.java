@@ -10,6 +10,9 @@ class Utils {
     }
 
     static HttpUrl checkUrl(String url) {
+        if(null == url){
+            return null ;
+        }
         HttpUrl parseUrl = HttpUrl.parse(url);
         if (null == parseUrl) {
             throw new NullPointerException("The url [" + url + "] Not well-formed");

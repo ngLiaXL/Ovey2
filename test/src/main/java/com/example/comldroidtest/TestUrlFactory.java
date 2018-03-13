@@ -9,11 +9,11 @@ public class TestUrlFactory extends BaseUrlFactory {
 
     public interface UrlKeys {
         String SD = "SD";
-        String GD = "GD";
+        String HTTPS = "HTTPS" ;
     }
 
     public TestUrlFactory() {
-        put(UrlKeys.SD, "https://api.douban.com/");
+        put(UrlKeys.HTTPS, "https://kyfw.12306.cn/");
     }
 
     @Override
